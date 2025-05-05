@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datos para tu envío</title>
+  <style>
+    body {
+      background-color: #fff;
+      font-family: Arial, sans-serif;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fce4ec;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #e91e63;
+      font-size: 24px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #000;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin-top: 20px;
+      background-color: #000;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #e91e63;
+    }
+    @media (max-width: 600px) {
+      .container {
+        margin: 10px;
+        padding: 15px;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      input, select, textarea, button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Datos para tu envío</h1>
+    <form id="envioForm">
+      <label for="nombre">Tu nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="telefono">Tu teléfono:</label>
+      <input type="tel" id="telefono" name="telefono" required>
+
+      <label for="nombreReceptor">Nombre de quien recibe:</label>
+      <input type="text" id="nombreReceptor" name="nombreReceptor" required>
+
+      <label for="telefonoReceptor">Teléfono de quien recibe:</label>
+      <input type="tel" id="telefonoReceptor" name="telefonoReceptor" required>
+
+      <label for="direccion">Dirección de envío:</label>
+      <textarea id="direccion" name="direccion" rows="3" required></textarea>
+
+      <label for="referencias">Referencias del domicilio:</label>
+      <textarea id="referencias" name="referencias" rows="2"></textarea>
+
+      <label for="fecha">Fecha del envío:</label>
+      <input type="date" id="fecha" name="fecha" required>
+
+      <label for="horario">Horario de envío:</label>
+      <select id="horario" name="horario" required>
+        <option value="">Selecciona un horario</option>
+        <option value="mañana">Mañana</option>
+        <option value="tarde">Tarde</option>
+      </select>
+
+      <button type="button" onclick="enviarWhatsapp()">Enviar en Whatsapp</button>
+    </form>
+  </div>
+
+  <script>
+    function enviarWhatsapp() {
+      const form = document.getElementById('envioForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const nombre = document.getElementById('nombre').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const nombreReceptor = document.getElementById('nombreReceptor').value.trim();
+      const telefonoReceptor = document.getElementById('telefonoReceptor').value.trim();
+      const direccion = document.getElementById('direccion').value.trim();
+      const referencias = document.getElementById('referencias').value.trim();
+      const fecha = document.getElementById('fecha').value;
+      const horario = document.getElementById('horario').value;
+
+      const mensaje = `Hola, me gustaría realizar un envío con los siguientes datos:%0A%0A` +
+        `*Tu nombre:* ${nombre}%0A` +
+        `*Tu teléfono:* ${telefono}%0A` +
+        `*Nombre de quien recibe:* ${nombreReceptor}%0A` +
+        `*Teléfono de quien recibe:* ${telefonoReceptor}%0A` +
+        `*Dirección de envío:* ${direccion}%0A` +
+        `*Referencias del domicilio:* ${referencias}%0A` +
+        `*Fecha del envío:* ${fecha}%0A` +
+        `*Horario de envío:* ${horario}`;
+
+      const url = `https://wa.me/5218341308149?text=${mensaje}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
