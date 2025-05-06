@@ -3,139 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Datos para tu envío</title>
+  <title>Pedido de Flores</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      background-color: #fff;
-      font-family: Arial, sans-serif;
-      color: #000;
+      font-family: 'Arial', sans-serif;
+      background-color: #fdf0f6;
       margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 600px;
-      margin: 20px auto;
       padding: 20px;
-      background-color: #fce4ec;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1 {
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    h2 {
+      color: fuchsia;
       text-align: center;
-      color: #e91e63;
-      font-size: 24px;
     }
     label {
       display: block;
-      margin-top: 15px;
+      margin-top: 12px;
       font-weight: bold;
-      color: #000;
     }
-    input, select, textarea {
+    input, textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
+      margin-top: 6px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 16px;
-      box-sizing: border-box;
     }
     button {
-      display: block;
-      width: 100%;
-      padding: 15px;
       margin-top: 20px;
-      background-color: #000;
-      color: #fff;
-      font-size: 16px;
+      width: 100%;
+      padding: 12px;
+      background-color: fuchsia;
+      color: white;
+      font-size: 18px;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #e91e63;
+      background-color: deeppink;
     }
     @media (max-width: 600px) {
-      .container {
-        margin: 10px;
-        padding: 15px;
-      }
-      h1 {
-        font-size: 20px;
-      }
-      input, select, textarea, button {
-        font-size: 14px;
+      body {
+        padding: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Datos para tu envío</h1>
-    <form id="envioForm">
-      <label for="nombre">Tu nombre:</label>
-      <input type="text" id="nombre" name="nombre" required>
 
-      <label for="telefono">Tu teléfono:</label>
-      <input type="tel" id="telefono" name="telefono" required>
+  <form id="pedidoForm">
+    <h2>Formulario de Pedido</h2>
 
-      <label for="nombreReceptor">Nombre de quien recibe:</label>
-      <input type="text" id="nombreReceptor" name="nombreReceptor" required>
+    <label for="nombreCliente">Tu nombre:</label>
+    <input type="text" id="nombreCliente" required>
 
-      <label for="telefonoReceptor">Teléfono de quien recibe:</label>
-      <input type="tel" id="telefonoReceptor" name="telefonoReceptor" required>
+    <label for="telefonoCliente">Tu tel�fono:</label>
+    <input type="tel" id="telefonoCliente" required>
 
-      <label for="direccion">Dirección de envío:</label>
-      <textarea id="direccion" name="direccion" rows="3" required></textarea>
+    <label for="nombreRecibe">Nombre de quien recibe:</label>
+    <input type="text" id="nombreRecibe" required>
 
-      <label for="referencias">Referencias del domicilio:</label>
-      <textarea id="referencias" name="referencias" rows="2"></textarea>
+    <label for="telefonoRecibe">Tel�fono de quien recibe:</label>
+    <input type="tel" id="telefonoRecibe" required>
 
-      <label for="fecha">Fecha del envío:</label>
-      <input type="date" id="fecha" name="fecha" required>
+    <label for="direccion">Direcci�n:</label>
+    <textarea id="direccion" rows="2" required></textarea>
 
-      <label for="horario">Horario de envío:</label>
-      <select id="horario" name="horario" required>
-        <option value="">Selecciona un horario</option>
-        <option value="mañana">Mañana</option>
-        <option value="tarde">Tarde</option>
-      </select>
+    <label for="referencias">Referencias del domicilio:</label>
+    <textarea id="referencias" rows="2"></textarea>
 
-      <button type="button" onclick="enviarWhatsapp()">Enviar en Whatsapp</button>
-    </form>
-  </div>
+    <label for="mensajeTarjeta">Mensaje en la tarjeta:</label>
+    <textarea id="mensajeTarjeta" rows="3"></textarea>
+
+    <button type="submit">Enviar por WhatsApp</button>
+  </form>
 
   <script>
-    function enviarWhatsapp() {
-      const form = document.getElementById('envioForm');
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
+    const form = document.getElementById("pedidoForm");
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
 
-      const nombre = document.getElementById('nombre').value.trim();
-      const telefono = document.getElementById('telefono').value.trim();
-      const nombreReceptor = document.getElementById('nombreReceptor').value.trim();
-      const telefonoReceptor = document.getElementById('telefonoReceptor').value.trim();
-      const direccion = document.getElementById('direccion').value.trim();
-      const referencias = document.getElementById('referencias').value.trim();
-      const fecha = document.getElementById('fecha').value;
-      const horario = document.getElementById('horario').value;
+      const nombreCliente = document.getElementById("nombreCliente").value;
+      const telefonoCliente = document.getElementById("telefonoCliente").value;
+      const nombreRecibe = document.getElementById("nombreRecibe").value;
+      const telefonoRecibe = document.getElementById("telefonoRecibe").value;
+      const direccion = document.getElementById("direccion").value;
+      const referencias = document.getElementById("referencias").value;
+      const mensajeTarjeta = document.getElementById("mensajeTarjeta").value;
 
-      const mensaje = `Hola, me gustaría realizar un envío con los siguientes datos:%0A%0A` +
-        `*Tu nombre:* ${nombre}%0A` +
-        `*Tu teléfono:* ${telefono}%0A` +
-        `*Nombre de quien recibe:* ${nombreReceptor}%0A` +
-        `*Teléfono de quien recibe:* ${telefonoReceptor}%0A` +
-        `*Dirección de envío:* ${direccion}%0A` +
-        `*Referencias del domicilio:* ${referencias}%0A` +
-        `*Fecha del envío:* ${fecha}%0A` +
-        `*Horario de envío:* ${horario}`;
+      // Enviar a Google Sheets
+      const scriptURL = "https://script.google.com/macros/s/AKfycbzplvaI6Sv3DyM074CsqkFgKJVBcswcIVUjVswWdabp_Y_6eGZaV1Wv5Lz0uzLTUt32/exec";
 
-      const url = `https://wa.me/5218341308149?text=${mensaje}`;
-      window.open(url, '_blank');
-    }
-  </script>
-</body>
-</html>
+      const datos = {
+        nombreCliente,
+        telefonoCliente,
+        nombreRecibe,
+        telefonoRecibe,
+        direccion,
+        referencias,
+        mensajeTarjeta
+      };
+
+      try {
+        await fetch(scriptURL, {
+          method: "POST",
+          body: JSON.stringify(datos),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+     
